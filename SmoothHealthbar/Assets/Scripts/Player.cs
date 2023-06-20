@@ -18,21 +18,21 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(int damage)
     {
-        if (_currentHealth > 0)
-        {
+        if (_currentHealth >= damage)
             _currentHealth -= damage;
+        else
+            _currentHealth = 0;
 
-            HealthChanged?.Invoke(_currentHealth, _health);
-        }
+        HealthChanged?.Invoke(_currentHealth, _health);
     }
 
     public void ApplyHeal(int heal)
     {
-        if (_currentHealth < _health)
-        {
+        if (_currentHealth + heal <= _health)
             _currentHealth += heal;
+        else
+            _currentHealth = _health;
 
-            HealthChanged?.Invoke(_currentHealth, _health);
-        }
+        HealthChanged?.Invoke(_currentHealth, _health);
     }
 }
